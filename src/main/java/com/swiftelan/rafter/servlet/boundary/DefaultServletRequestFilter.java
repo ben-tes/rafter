@@ -8,19 +8,21 @@ import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class DefaultServletRequestFilter implements Filter {
-    private RequestDispatcher dispatcher;
+    static final String DEFAULT_SERVLET_NAME = "default";
+	static final String SERVLET_PARAMETER_NAME = "DefaultServletFilterName";
+	private RequestDispatcher dispatcher;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Optional<? extends ServletRegistration> servlet = filterConfig.getServletContext().getServletRegistrations()
-                .entrySet().stream().filter(entry -> entry.getValue().getMappings().contains("/"))
-                .map(e -> e.getValue()).findFirst();
-        dispatcher = filterConfig.getServletContext().getNamedDispatcher(servlet.get().getName());
+    	String servletName = Optional.ofNullable(filterConfig.getInitParameter(SERVLET_PARAMETER_NAME)).orElse(DEFAULT_SERVLET_NAME);
+        dispatcher = filterConfig.getServletContext().getNamedDispatcher(servletName);
+        if (dispatcher == null) {
+        	throw new ServletException("No servlet configured with name: " + servletName);
+        }
     }
 
     @Override
