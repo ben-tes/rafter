@@ -119,8 +119,8 @@ public class JspViewResponseBodyWriterTest {
         MultivaluedMap<String, Object> httpHeaders = new MultivaluedHashMap<>();
 
         final Map<String, Object> attributes = new HashMap<>();
-        Mockito.doAnswer(i -> attributes.put(i.getArgument(0), i.getArgument(1)))
-                .when(request).setAttribute(Mockito.anyString(), Mockito.any());
+        Mockito.doAnswer(i -> attributes.put(i.getArgument(0), i.getArgument(1))).when(request)
+                .setAttribute(Mockito.anyString(), Mockito.any());
         writer.writeTo(context, null, null, null, null, httpHeaders, entityStream);
         Assert.assertEquals(models.get("one"), attributes.get("one"));
         Assert.assertEquals(models.get("two"), attributes.get("two"));

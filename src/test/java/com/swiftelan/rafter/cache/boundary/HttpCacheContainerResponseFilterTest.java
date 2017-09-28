@@ -63,6 +63,13 @@ public class HttpCacheContainerResponseFilterTest {
     }
 
     @Test
+    public void nullResourceClass() throws IOException {
+        Mockito.when(filter.resource.getResourceClass()).then(i -> null);
+        filter.filter(requestContext, responseContext);
+        Assert.assertFalse(responseContext.getHeaders().containsKey(HttpHeaders.CACHE_CONTROL));
+    }
+
+    @Test
     public void resourceMethod() throws IOException {
         Mockito.when(filter.resource.getResourceClass()).then(i -> ResourceClass.class);
         Mockito.when(filter.resource.getResourceMethod()).then(i -> ResourceClass.class.getMethod("test"));
@@ -71,6 +78,17 @@ public class HttpCacheContainerResponseFilterTest {
         CacheControl cacheControl = (CacheControl) responseContext.getHeaders().getFirst(HttpHeaders.CACHE_CONTROL);
         Assert.assertNotNull(cacheControl);
         Assert.assertEquals(100, cacheControl.getMaxAge());
+    }
+
+    @Test
+    public void nullResourceMethod() throws IOException {
+        Mockito.when(filter.resource.getResourceClass()).then(i -> ResourceClass.class);
+        Mockito.when(filter.resource.getResourceMethod()).then(i -> null);
+        filter.filter(requestContext, responseContext);
+        Assert.assertTrue(responseContext.getHeaders().containsKey(HttpHeaders.CACHE_CONTROL));
+        CacheControl cacheControl = (CacheControl) responseContext.getHeaders().getFirst(HttpHeaders.CACHE_CONTROL);
+        Assert.assertNotNull(cacheControl);
+        Assert.assertEquals(900, cacheControl.getMaxAge());
     }
 
     class CacheLiteral implements HttpCache {

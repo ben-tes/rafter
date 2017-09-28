@@ -102,15 +102,15 @@ public class JspViewMessageBodyWriter implements MessageBodyWriter<JspViewContex
                     stream.write(b);
                 }
 
-				@Override
-				public boolean isReady() {
-					return true;
-				}
+                @Override
+                public boolean isReady() {
+                    return true;
+                }
 
-				@Override
-				public void setWriteListener(WriteListener writeListener) {
-					
-				}
+                @Override
+                public void setWriteListener(WriteListener writeListener) {
+
+                }
             };
         }
     }

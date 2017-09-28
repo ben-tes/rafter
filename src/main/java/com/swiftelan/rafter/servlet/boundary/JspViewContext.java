@@ -56,8 +56,8 @@ public class JspViewContext {
     }
 
     /**
-     * Returns HTTP response object from the servlet container. The underlying output stream should be used to write the
-     * result of processing a view.
+     * Returns HTTP response object from the servlet container. The underlying
+     * output stream should be used to write the result of processing a view.
      *
      * @return HTTP response object.
      */
@@ -66,7 +66,8 @@ public class JspViewContext {
     }
 
     /**
-     * Returns the {@link javax.ws.rs.core.UriInfo} instance containing information about the current request URI.
+     * Returns the {@link javax.ws.rs.core.UriInfo} instance containing information
+     * about the current request URI.
      *
      * @return the URI info for the current request.
      * @see javax.ws.rs.core.UriInfo
@@ -76,8 +77,8 @@ public class JspViewContext {
     }
 
     /**
-     * Returns the {@link javax.ws.rs.container.ResourceInfo} instance containing information about the controller
-     * method matched in the current request.
+     * Returns the {@link javax.ws.rs.container.ResourceInfo} instance containing
+     * information about the controller method matched in the current request.
      *
      * @return the resource info for the current request.
      * @see javax.ws.rs.container.ResourceInfo
@@ -87,8 +88,9 @@ public class JspViewContext {
     }
 
     /**
-     * Returns the application's configuration. The configuration provides access to properties such as
-     * {@link javax.mvc.engine.ViewEngine#VIEW_FOLDER}, which view engines must use to locate views.
+     * Returns the application's configuration. The configuration provides access to
+     * properties such as {@link javax.mvc.engine.ViewEngine#VIEW_FOLDER}, which
+     * view engines must use to locate views.
      *
      * @return application's configuration.
      * @see javax.ws.rs.core.Configuration
